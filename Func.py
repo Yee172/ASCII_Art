@@ -3,10 +3,13 @@
 __author__ = 'Yee_172'
 __date__ = '2017/10/13'
 
+
 from PIL import Image, ImageChops  
 from PIL.GifImagePlugin import getheader, getdata
 import argparse
 
+
+TOPNG = 1
 
 parser = argparse.ArgumentParser()
 parser.add_argument('file')
@@ -17,10 +20,20 @@ args = parser.parse_args()
 IMG = args.file
 WIDTH = int(args.width * 1.8)
 HEIGHT = int(args.height * 1)
-OUTPUT = args.output
+if TOPNG:
+    if args.output[-4] is not '.':
+        OUTPUT = args.output + '.dot'
+    elif args.output[-4:] == '.txt':
+        OUTPUT = args.output[:-4] + '.dot'
+    elif args.output[-4:] == '.dot':
+        OUTPUT = args.output
+    else:
+        OUTPUT = args.output
+else:
+    OUTPUT = args.output
 
 
-ascii_char = list('$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI        ')
+ascii_char = list('$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI         ')
 # █▓
 # $@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`\'.
 # BUN ███████████████████████████████████▓████████████████████████#██      
@@ -48,4 +61,8 @@ print(txt)
 
 if OUTPUT:
     with open(OUTPUT, 'w') as f:
+        if TOPNG:
+            f.write('graph{node [shape=box, color=white, fontname="Menlo Regular"]"\n')
         f.write(txt)
+        if TOPNG:
+            f.write('"}\n')
