@@ -33,7 +33,7 @@ else:
     OUTPUT = args.output
 
 
-ascii_char = list('$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI         ')
+ascii_char = list('$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,^`    ')
 # █▓
 # $@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`\'.
 # BUN ███████████████████████████████████▓████████████████████████#██      
@@ -62,7 +62,7 @@ print(txt)
 if OUTPUT:
     with open(OUTPUT, 'w') as f:
         if TOPNG:
-            f.write('graph{node [shape=box, color=white, fontname="Menlo Regular"]"\n')
+            f.write('graph{node [shape=box, color=white, fontname="Menlo Regular"]"')
         f.write(txt)
         if TOPNG:
             f.write('"}\n')
