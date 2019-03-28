@@ -38,7 +38,7 @@ ascii_char = list('$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;
 # $@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`\'.
 # BUN ███████████████████████████████████▓████████████████████████#██      
 
-def get_char(r, g, b, alpha = 256):
+def get_char(r, g, b, alpha=256):
     if alpha == 0:
         return ' '
     length = len(ascii_char)
@@ -46,16 +46,30 @@ def get_char(r, g, b, alpha = 256):
     unit = 257 / length
     return ascii_char[int(gray / unit)]
 
+def get_charp(p, alpha=256):
+    if alpha == 0:
+        return ' '
+    length = len(ascii_char)
+    gray = p
+    unit = 257 / length
+    return ascii_char[int(length - 1 - gray / unit)]
+
 
 im = Image.open(IMG)
 im = im.resize((WIDTH, HEIGHT), Image.NEAREST)
 
 txt = ''
 
-for i in range(HEIGHT):
-    for j in range(WIDTH):
-        txt += get_char(*im.getpixel((j, i)))
-    txt += '\n'
+if im.mode == 'P':
+    for i in range(HEIGHT):
+        for j in range(WIDTH):
+            txt += get_charp(im.getpixel((j, i)))
+        txt += '\n'
+else:
+    for i in range(HEIGHT):
+        for j in range(WIDTH):
+            txt += get_char(*im.getpixel((j, i)))
+        txt += '\n'
 
 print(txt)
 
